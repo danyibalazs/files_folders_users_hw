@@ -1,6 +1,10 @@
 package com.codeclan.example.FilesAndFoldersHW.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "folders")
@@ -12,8 +16,13 @@ public class Folder {
     @Column
     private String title;
 
+    @JsonIgnoreProperties("folder")
+    @OneToMany(mappedBy = "folder")
+    private List<File> files;
+
     public Folder(String title) {
         this.title = title;
+        this.files = new ArrayList<>();
     }
 
     public Folder(){
@@ -34,5 +43,17 @@ public class Folder {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<File> files) {
+        this.files = files;
+    }
+
+    public void addFile(File file){
+        this.files.add(file);
     }
 }

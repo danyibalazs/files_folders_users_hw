@@ -25,16 +25,27 @@ public class DataLoader implements ApplicationRunner {
         fileRepository.deleteAll();
         folderRepository.deleteAll();
 
-        File pic = new File("pic", "jpg", 50 );
-        fileRepository.save(pic);
-
-        File text = new File("text", "txt", 10);
-        fileRepository.save(text);
-
         Folder pics = new Folder("pictures");
         folderRepository.save(pics);
 
         Folder texts = new Folder("texts");
         folderRepository.save(texts);
+
+        File pic = new File("pic", "jpg", 50, pics );
+        fileRepository.save(pic);
+
+        File text = new File("text", "txt", 10, texts);
+        fileRepository.save(text);
+
+        pics.addFile(pic);
+        folderRepository.save(pics);
+        texts.addFile(text);
+        folderRepository.save(texts);
+
+
+
+
+
+
     }
 }
